@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:property_management/utils/colors.dart';
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
+
+import '../../utils/colors.dart';
 
 class BillCheckScreen extends StatefulWidget {
   const BillCheckScreen({super.key});
@@ -129,8 +131,7 @@ class _BillCheckScreenState extends State<BillCheckScreen> {
 
               // Check if this is a bill row and not a header
               if (status.contains('PAY ADVANCE')) {
-                final amt =
-                    double.tryParse(
+                final amt = double.tryParse(
                       billAmt.replaceAll(RegExp(r'[^0-9.-]'), ''),
                     ) ??
                     0.0;
@@ -166,10 +167,9 @@ class _BillCheckScreenState extends State<BillCheckScreen> {
             });
 
             if (mounted) {
-              final message =
-                  isPaid
-                      ? 'Hello $validName, your amount has been paid!'
-                      : 'Hello $validName, you have to pay Rs. $validAmount';
+              final message = isPaid
+                  ? 'Hello $validName, your amount has been paid!'
+                  : 'Hello $validName, you have to pay Rs. $validAmount';
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -391,19 +391,18 @@ class _BillCheckScreenState extends State<BillCheckScreen> {
                         label: 'NEA Office Location',
                         hint: 'Select your NEA office location',
                         icon: Icons.location_on_outlined,
-                        items:
-                            _locations.keys.map((String location) {
-                              return DropdownMenuItem<String>(
-                                value: location,
-                                child: Text(
-                                  location,
-                                  style: const TextStyle(
-                                    color: Color(0xFF1E293B),
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
+                        items: _locations.keys.map((String location) {
+                          return DropdownMenuItem<String>(
+                            value: location,
+                            child: Text(
+                              location,
+                              style: const TextStyle(
+                                color: Color(0xFF1E293B),
+                                fontSize: 15,
+                              ),
+                            ),
+                          );
+                        }).toList(),
                         onChanged: (String? newValue) {
                           setState(() {
                             _selectedLocation = newValue!;
@@ -415,18 +414,17 @@ class _BillCheckScreenState extends State<BillCheckScreen> {
                         width: double.infinity,
                         height: 54,
                         child: ElevatedButton(
-                          onPressed:
-                              _isLoading
-                                  ? null
-                                  : () {
-                                    if (_formKey.currentState!.validate()) {
-                                      checkNeaBill(
-                                        _scNoController.text,
-                                        _customerIdController.text,
-                                        _selectedLocation,
-                                      );
-                                    }
-                                  },
+                          onPressed: _isLoading
+                              ? null
+                              : () {
+                                  if (_formKey.currentState!.validate()) {
+                                    checkNeaBill(
+                                      _scNoController.text,
+                                      _customerIdController.text,
+                                      _selectedLocation,
+                                    );
+                                  }
+                                },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
                             elevation: 0,
@@ -434,26 +432,25 @@ class _BillCheckScreenState extends State<BillCheckScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          child:
-                              _isLoading
-                                  ? const SizedBox(
-                                    height: 24,
-                                    width: 24,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2.5,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
-                                      ),
-                                    ),
-                                  )
-                                  : const Text(
-                                    'Check Bill',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
+                          child: _isLoading
+                              ? const SizedBox(
+                                  height: 24,
+                                  width: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
                                     ),
                                   ),
+                                )
+                              : const Text(
+                                  'Check Bill',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
                         ),
                       ),
                     ],
@@ -720,10 +717,9 @@ class _BillCheckScreenState extends State<BillCheckScreen> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color:
-                    isHighlighted
-                        ? AppColors.primary.withOpacity(0.1)
-                        : const Color(0xFFF8FAFC),
+                color: isHighlighted
+                    ? AppColors.primary.withOpacity(0.1)
+                    : const Color(0xFFF8FAFC),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -747,10 +743,9 @@ class _BillCheckScreenState extends State<BillCheckScreen> {
                 Text(
                   value,
                   style: TextStyle(
-                    color:
-                        isHighlighted
-                            ? AppColors.primary
-                            : const Color(0xFF1E293B),
+                    color: isHighlighted
+                        ? AppColors.primary
+                        : const Color(0xFF1E293B),
                     fontSize: isHighlighted ? 16 : 15,
                     fontWeight:
                         isHighlighted ? FontWeight.bold : FontWeight.w500,
