@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'screens/owner/bill_check_screen.dart';
+import 'screens/bill_check_screen.dart';
 import 'utils/colors.dart';
 
 void main() {

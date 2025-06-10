@@ -11,7 +11,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:property_management/main.dart';
+import 'package:neabillcheck/main.dart';
 
 void main() {
   testWidgets('Splash screen test', (WidgetTester tester) async {
