@@ -1,3 +1,7 @@
+/// NEA Bill Check App
+/// Developed by Samyk Chaudhary
+/// GitHub: @immsamyak (https://github.com/immsamyak/neabillcheck)
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/owner/bill_check_screen.dart';

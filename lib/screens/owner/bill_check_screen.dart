@@ -1,3 +1,7 @@
+/// NEA Bill Check Screen
+/// Developed by Samyk Chaudhary
+/// GitHub: @immsamyak (https://github.com/immsamyak/neabillcheck)
+
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
