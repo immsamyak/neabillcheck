@@ -14,6 +14,75 @@ A Flutter application to check Nepal Electricity Authority (NEA) electricity bil
 - Detailed bill information display
 - Modern and responsive UI design
 
+## How It Works
+
+### Technical Implementation
+The app uses web scraping to fetch bill information directly from the NEA billing website. Here's how it works:
+
+1. **Data Collection**
+   - User inputs: SC Number, Customer ID, and NEA Office Location
+   - Each NEA office has a unique location code stored in the app
+
+2. **Web Scraping Process**
+   ```dart
+   // Example of the web scraping implementation
+   final url = Uri.parse('https://www.neabilling.com/viewonline/viewonlineresult/');
+   
+   // Form data preparation
+   final formData = {
+     'NEA_location': locationCode.toString(),
+     'sc_no': scNo,
+     'consumer_ID': customerId,
+   };
+
+   // Making POST request with appropriate headers
+   final response = await http.post(
+     url,
+     headers: {
+       "Content-Type": "application/x-www-form-urlencoded",
+       "User-Agent": "Mozilla/5.0",
+       "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+     },
+     body: formData,
+   );
+   ```
+
+3. **HTML Parsing**
+   - Uses `html` package to parse the response
+   - Extracts customer name from Consumer Detail section
+   - Extracts bill amount from Bill Detail section
+   - Determines payment status based on parsed data
+
+4. **Data Processing**
+   ```dart
+   // Example of HTML parsing
+   document.querySelectorAll('tr').forEach((row) {
+     final cells = row.querySelectorAll('td');
+     if (cells.length >= 2) {
+       final label = cells[0].text.trim();
+       if (label == 'Customer Name') {
+         name = cells[1].text.trim();
+       }
+     }
+   });
+   ```
+
+5. **Error Handling**
+   - Validates server response
+   - Checks for "No Records" message
+   - Handles network errors
+   - Provides user-friendly error messages
+
+### Advantages of This Approach
+- No API key required
+- Real-time data directly from NEA website
+- Works with all NEA office locations
+- Minimal server dependency
+- Fast and efficient
+
+### Note
+This implementation uses public web scraping and should be used responsibly. The app respects NEA's website structure and implements appropriate error handling and rate limiting.
+
 ## Project Structure
 ```
 neabillcheck/
@@ -39,8 +108,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  http: ^1.1.0
-  html: ^0.15.4
+  http: ^1.1.0  # For making HTTP requests
+  html: ^0.15.4 # For parsing HTML responses
 ```
 
 ## Getting Started
